@@ -1,11 +1,11 @@
 ---
 name: record-installed-plugins
-description: Snapshot every installed Claude Code plugin and the marketplaces they came from into a portable manifest committed in the daniel-toolkit repo, so the exact set can be reinstalled on another machine. Use when the user wants to save, snapshot, record, or back up their installed plugins for syncing to another PC, or asks "what plugins do I have installed". Claude Code only.
+description: Snapshot every installed Claude Code plugin and the marketplaces they came from into a portable manifest committed in the toolkit repo, so the exact set can be reinstalled on another machine. Use when the user wants to save, snapshot, record, or back up their installed plugins for syncing to another PC, or asks "what plugins do I have installed". Claude Code only.
 ---
 
 # Record installed plugins
 
-Write a portable "shopping list" of the user's installed Claude Code plugins (and the marketplaces they came from) into the `daniel-toolkit` repo, so a fresh machine can rebuild the same setup with `restore-installed-plugins`.
+Write a portable "shopping list" of the user's installed Claude Code plugins (and the marketplaces they came from) into the `toolkit` repo, so a fresh machine can rebuild the same setup with `restore-installed-plugins`.
 
 This skill is **Claude Code-specific** — it reads Claude's own plugin bookkeeping. It does nothing useful on other agents.
 
@@ -24,11 +24,11 @@ Also, if it exists, list the user's Codex skill symlinks at `~/.codex/skills/` (
 
 For every installed plugin, gather: plugin name, its marketplace, the marketplace's `owner/repo` source, and a one-line description (from the catalog cache if available). **Normalize everything to a global install.** This manifest is a desired-state "install these globally on a fresh machine" list — so do NOT record per-project scope or a machine-specific `projectPath` (they don't belong in a portable, possibly-public repo, and re-pinning a plugin to a path that won't exist on the new PC is wrong). Also record every *added* marketplace even if nothing is installed from it yet (so the "stores" are remembered).
 
-## 3. Locate the daniel-toolkit repo
+## 3. Locate the toolkit repo
 
-The manifest must be written into the user's **git checkout** of `daniel-toolkit` (not the installed plugin cache — that copy isn't what they push). Determine it by:
-- If the current working directory (or a parent) is a checkout whose `.claude-plugin/marketplace.json` has `"name": "daniel-toolkit"`, use that checkout's root.
-- Otherwise, ask the user for the path to their `daniel-toolkit` checkout.
+The manifest must be written into the user's **git checkout** of `toolkit` (not the installed plugin cache — that copy isn't what they push). Determine it by:
+- If the current working directory (or a parent) is a checkout whose `.claude-plugin/marketplace.json` has `"name": "toolkit"`, use that checkout's root.
+- Otherwise, ask the user for the path to their `toolkit` checkout.
 
 ## 4. Write two files at the repo root
 
@@ -50,7 +50,7 @@ Do not invent data — only record what the source files actually contain. If a 
 
 ## 5. Hand off
 
-Tell the user the two files were written and remind them to commit and push `daniel-toolkit` so the list travels:
+Tell the user the two files were written and remind them to commit and push `toolkit` so the list travels:
 ```
 git -C <repo> add third-party-plugins.md third-party-plugins.lock.json && git -C <repo> commit -m "Update installed-plugins manifest" && git -C <repo> push
 ```

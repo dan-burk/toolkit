@@ -1,6 +1,6 @@
 ---
 name: restore-installed-plugins
-description: Read the third-party-plugins manifest from the daniel-toolkit repo and produce the exact commands to reinstall all recorded Claude Code marketplaces and plugins on a fresh machine. Use on a new PC after cloning daniel-toolkit, or whenever the user wants to restore, reinstall, or rebuild their installed plugins. Claude Code only.
+description: Read the third-party-plugins manifest from the toolkit repo and produce the exact commands to reinstall all recorded Claude Code marketplaces and plugins on a fresh machine. Use on a new PC after cloning toolkit, or whenever the user wants to restore, reinstall, or rebuild their installed plugins. Claude Code only.
 ---
 
 # Restore installed plugins
@@ -11,7 +11,7 @@ This skill is **Claude Code-specific**.
 
 ## 1. Find and read the manifest
 
-Look for `third-party-plugins.lock.json` at the root of the `daniel-toolkit` checkout (current directory or a parent; if you can't find it, ask the user for the repo path). Fall back to parsing `third-party-plugins.md` only if the lock file is absent.
+Look for `third-party-plugins.lock.json` at the root of the `toolkit` checkout (current directory or a parent; if you can't find it, ask the user for the repo path). Fall back to parsing `third-party-plugins.md` only if the lock file is absent.
 
 ## 2. Emit the marketplace commands first
 

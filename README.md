@@ -1,4 +1,4 @@
-# daniel-toolkit
+# toolkit
 
 Daniel Burkhalter's cross-platform SKILL catalog — one repo, installable on every machine. Claude Code and Codex compatible.
 
@@ -25,16 +25,16 @@ Daniel Burkhalter's cross-platform SKILL catalog — one repo, installable on ev
 
 **Local (this machine):**
 ```bash
-claude plugin marketplace add "/mnt/c/Users/Daniel Burkhalter/Documents/GitHub/daniel-toolkit"
-claude plugin install daniel-toolkit@daniel-toolkit
+claude plugin marketplace add "/mnt/c/Users/Daniel Burkhalter/Documents/GitHub/toolkit"
+claude plugin install toolkit@toolkit
 ```
 
 **From GitHub (any machine, once pushed):**
 ```bash
-claude plugin marketplace add <USER>/daniel-toolkit
-claude plugin install daniel-toolkit@daniel-toolkit
+claude plugin marketplace add <USER>/toolkit
+claude plugin install toolkit@toolkit
 ```
-Update later with: `claude plugin marketplace update daniel-toolkit`.
+Update later with: `claude plugin marketplace update toolkit`.
 
 ## Use in OpenAI Codex
 
@@ -45,7 +45,7 @@ for d in "<repo>/skills"/*/; do ln -s "$d" ~/.codex/skills/; done
 
 ## Maintaining across PCs
 
-This repo is the single source of truth. Edit a skill → `git push`. On another machine → `git pull` (Codex) and/or `claude plugin marketplace update daniel-toolkit` (Claude Code). No account sync involved; the repo is the sync mechanism.
+This repo is the single source of truth. Edit a skill → `git push`. On another machine → `git pull` (Codex) and/or `claude plugin marketplace update toolkit` (Claude Code). No account sync involved; the repo is the sync mechanism.
 
 ## Conventions
 
