@@ -56,6 +56,16 @@ for d in "<repo>/skills"/*/; do ln -s "$d" ~/.codex/skills/; done
 
 This repo is the single source of truth. Edit a skill → `git push`. On another machine → `git pull` (Codex) and/or `/plugin marketplace update orditus` (Claude Code). No account sync involved; the repo is the sync mechanism.
 
+### When you change something — what to run
+
+| You did this | Steps | Marketplace update? |
+|---|---|---|
+| **Installed a 3rd-party plugin** | Run `record-installed-plugins` (regenerates the manifest) → commit → push | ❌ No — the manifest is just a shopping list, only read by `restore-installed-plugins` on a fresh machine |
+| **Added/edited a toolkit skill (to distribute)** | commit → push → `/plugin marketplace update orditus` → `/reload-plugins` | ✅ Yes — `update` pulls the new commit, `reload-plugins` loads it into the session. If it still doesn't show, re-run `/plugin install toolkit@orditus` |
+| **Iterating on a skill locally** | `claude --plugin-dir <repo>` then edit + `/reload-plugins` | ❌ No — and no commit needed; changes are live instantly. Commit + push only when ready to distribute |
+
+Don't hand-edit `third-party-plugins.*` — always run the `record-installed-plugins` skill so the manifest stays consistent.
+
 ## Conventions
 
 - **Names** are `verb-noun-qualifier` so a skill's job is obvious at a glance.
