@@ -1,0 +1,17 @@
+{
+  "formats": {
+    "csv":        { "extension": ".csv",        "reader": "readr::read_csv",     "package": "readr" },
+    "tsv":        { "extension": ".tsv",        "reader": "readr::read_tsv",     "package": "readr" },
+    "parquet":    { "extension": ".parquet",     "reader": "arrow::read_parquet", "package": "arrow" },
+    "geoparquet": { "extension": ".geoparquet",  "reader": "arrow::read_parquet", "package": "arrow" },
+    "fst":        { "extension": ".fst",         "reader": "fst::read_fst",       "package": "fst" },
+    "rds":        { "extension": ".rds",         "reader": "readRDS",             "package": null },
+    "xlsx":       { "extension": ".xlsx",        "reader": "readxl::read_excel",  "package": "readxl" }
+  },
+  "profiler": {
+    "high_na_pct": 90,
+    "skewness_threshold": 2,
+    "high_cardinality_threshold": 100,
+    "top_values_count": 10
+  }
+}

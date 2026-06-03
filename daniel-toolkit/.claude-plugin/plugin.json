@@ -1,0 +1,8 @@
+{
+  "name": "daniel-toolkit",
+  "description": "Portable, cross-platform (Claude Code + OpenAI Codex) skills for diagrams, R code review, data-science workflows, project upkeep, bookmarks, debugging, and network triage.",
+  "author": {
+    "name": "Daniel Burkhalter",
+    "email": "daniel.burkhalter@orditus.com"
+  }
+}

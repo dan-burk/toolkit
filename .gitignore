@@ -1,0 +1,10 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+
+# never commit user data that skills operate on
+**/bookmarks.jsonl
+**/bookmarks.md
+**/descriptions.json
+**/DOMAIN.md

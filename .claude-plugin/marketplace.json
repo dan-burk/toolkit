@@ -1,0 +1,14 @@
+{
+  "name": "daniel-toolkit",
+  "owner": {
+    "name": "Daniel Burkhalter",
+    "email": "daniel.burkhalter@orditus.com"
+  },
+  "plugins": [
+    {
+      "name": "daniel-toolkit",
+      "source": "./daniel-toolkit",
+      "description": "Daniel's portable cross-platform skill toolkit: diagrams, R review, data science, project upkeep, bookmarks, debugging, and network triage."
+    }
+  ]
+}
