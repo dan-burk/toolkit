@@ -27,7 +27,7 @@ For every installed plugin, gather: plugin name, its marketplace, the marketplac
 ## 3. Locate the toolkit repo
 
 The manifest must be written into the user's **git checkout** of `toolkit` (not the installed plugin cache — that copy isn't what they push). Determine it by:
-- If the current working directory (or a parent) is a checkout whose `.claude-plugin/marketplace.json` has `"name": "toolkit"`, use that checkout's root.
+- If the current working directory (or a parent) is a checkout whose `.claude-plugin/marketplace.json` has `"name": "orditus"`, use that checkout's root.
 - Otherwise, ask the user for the path to their `toolkit` checkout.
 
 ## 4. Write two files at the repo root

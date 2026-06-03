@@ -17,7 +17,7 @@ Look for `third-party-plugins.lock.json` at the root of the `toolkit` checkout (
 
 For each unique marketplace in the manifest, output:
 ```
-claude plugin marketplace add <owner/repo>
+/plugin marketplace add <owner/repo>
 ```
 (Marketplaces must be added before their plugins can be installed.)
 
@@ -25,7 +25,7 @@ claude plugin marketplace add <owner/repo>
 
 For each plugin, output:
 ```
-claude plugin install <plugin>@<marketplace>
+/plugin install <plugin>@<marketplace>
 ```
 Install everything **globally** (the default user scope) so it's available in every project — the manifest is a desired-state global list and carries no project pinning.
 
@@ -35,4 +35,4 @@ If the manifest lists `codex_skills`, remind the user that Codex consumes skills
 
 ## 4. Present, don't execute
 
-Show the full command block in one copy-paste-able fenced section, grouped (marketplaces, then plugins), with a one-line note per plugin saying what it is (from the manifest description) so the user can skip any they no longer want. Finish by telling them to run `claude plugin marketplace update` afterward if they want the latest versions. Offer to run the commands for them only if they ask.
+Show the full command block in one copy-paste-able fenced section, grouped (marketplaces, then plugins), with a one-line note per plugin saying what it is (from the manifest description) so the user can skip any they no longer want. Finish by telling them to run `/plugin marketplace update` afterward if they want the latest versions. Offer to run the commands for them only if they ask.

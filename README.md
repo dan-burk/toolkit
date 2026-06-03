@@ -23,18 +23,27 @@ Daniel Burkhalter's cross-platform SKILL catalog — one repo, installable on ev
 
 ## Install (Claude Code)
 
-**Local (this machine):**
-```bash
-claude plugin marketplace add "/mnt/c/Users/Daniel Burkhalter/Documents/GitHub/toolkit"
-claude plugin install toolkit@toolkit
+Register this repo as a Claude Code plugin marketplace by running this in Claude Code:
+
+```
+/plugin marketplace add dan-burk/toolkit
 ```
 
-**From GitHub (any machine, once pushed):**
-```bash
-claude plugin marketplace add <USER>/toolkit
-claude plugin install toolkit@toolkit
+Then install the plugin, either interactively:
+
+- Select **Browse and install plugins**
+- Select **toolkit**
+- Select **Install now**
+
+Alternatively, install it directly:
+
 ```
-Update later with: `claude plugin marketplace update toolkit`.
+/plugin install toolkit@orditus
+```
+
+After installing, use a skill by just mentioning it — for instance: "Use the sketch-to-ascii-diagram skill on this photo" or "Review my R changes before I push."
+
+Update later with `/plugin marketplace update orditus`.
 
 ## Use in OpenAI Codex
 
@@ -45,7 +54,7 @@ for d in "<repo>/skills"/*/; do ln -s "$d" ~/.codex/skills/; done
 
 ## Maintaining across PCs
 
-This repo is the single source of truth. Edit a skill → `git push`. On another machine → `git pull` (Codex) and/or `claude plugin marketplace update toolkit` (Claude Code). No account sync involved; the repo is the sync mechanism.
+This repo is the single source of truth. Edit a skill → `git push`. On another machine → `git pull` (Codex) and/or `/plugin marketplace update orditus` (Claude Code). No account sync involved; the repo is the sync mechanism.
 
 ## Conventions
 
