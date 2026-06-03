@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "toolkit",
-      "source": ".",
+      "source": "./",
       "description": "Daniel's portable cross-platform skill toolkit: diagrams, R review, data science, project upkeep, bookmarks, debugging, and network triage."
     }
   ]
