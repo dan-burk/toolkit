@@ -27,9 +27,7 @@ For each plugin, output:
 ```
 claude plugin install <plugin>@<marketplace>
 ```
-Handle scope honestly:
-- **User-scoped** plugins → install as-is (available everywhere).
-- **Project-scoped** plugins → note the original `projectPath` and tell the user these were tied to a specific project. Ask whether they want them global on this machine or only inside that project, rather than silently changing scope.
+Install everything **globally** (the default user scope) so it's available in every project — the manifest is a desired-state global list and carries no project pinning.
 
 ## 3b. Codex side (if present)
 
