@@ -1,8 +1,6 @@
 # daniel-toolkit
 
-My personal, cross-platform skill catalog — one repo, installed on every machine, works in **both Claude Code and OpenAI Codex**.
-
-Everything here is a **skill** (`SKILL.md`), because skills are the one format both tools read. Commands and standalone agents from my old per-repo setups were converted into skills so they travel. User *data* (bookmarks, a workspace's `DOMAIN.md`) never lives here — only the code/templates that operate on it.
+Daniel Burkhalter's cross-platform SKILL catalog — one repo, installable on every machine. Claude Code and Codex compatible.
 
 ## The skills
 
@@ -25,17 +23,13 @@ Everything here is a **skill** (`SKILL.md`), because skills are the one format b
 
 ## Install (Claude Code)
 
-**Local (this machine, for testing now):**
+**Local (this machine):**
 ```bash
 claude plugin marketplace add "/mnt/c/Users/Daniel Burkhalter/Documents/GitHub/daniel-toolkit"
 claude plugin install daniel-toolkit@daniel-toolkit
 ```
 
-**From GitHub (any machine, once pushed):** first set the `source` in `.claude-plugin/marketplace.json` to the git-subdir form:
-```json
-"source": { "source": "git-subdir", "url": "https://github.com/<USER>/daniel-toolkit.git", "path": "daniel-toolkit" }
-```
-then on each machine:
+**From GitHub (any machine, once pushed):**
 ```bash
 claude plugin marketplace add <USER>/daniel-toolkit
 claude plugin install daniel-toolkit@daniel-toolkit
@@ -44,18 +38,18 @@ Update later with: `claude plugin marketplace update daniel-toolkit`.
 
 ## Use in OpenAI Codex
 
-Codex reads `SKILL.md` from `~/.codex/skills/`. Point it at this repo's skills (symlink, so updates flow with `git pull`):
+Codex reads `SKILL.md` from `~/.codex/skills/`. Symlink this repo's skills so updates flow with `git pull`:
 ```bash
-for d in "<repo>/daniel-toolkit/skills"/*/; do ln -s "$d" ~/.codex/skills/; done
+for d in "<repo>/skills"/*/; do ln -s "$d" ~/.codex/skills/; done
 ```
 
 ## Maintaining across PCs
 
-This repo is the single source of truth. Edit a skill → `git push`. On another machine → `git pull` (Codex) and/or `claude plugin marketplace update daniel-toolkit` (Claude Code). No account sync is involved; the repo is the sync mechanism.
+This repo is the single source of truth. Edit a skill → `git push`. On another machine → `git pull` (Codex) and/or `claude plugin marketplace update daniel-toolkit` (Claude Code). No account sync involved; the repo is the sync mechanism.
 
 ## Conventions
 
 - **Names** are `verb-noun-qualifier` so a skill's job is obvious at a glance.
-- **No Claude-only constructs** in skill bodies (no tool name-drops, subagents, or `.claude/` paths) — instructions are intent-level so any capable agent can follow them.
+- **No Claude-only constructs** in skill bodies — instructions are intent-level so either Claude Code or Codex can follow them.
 - **Instruction file** is detected per platform: `CLAUDE.md` (Claude Code) or `AGENTS.md` (Codex).
-- **Bundled assets** live in each skill folder and are referenced via `${CLAUDE_SKILL_DIR}/...`.
+- **Bundled assets** live in each skill folder, referenced via `${CLAUDE_SKILL_DIR}/...`.
