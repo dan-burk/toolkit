@@ -266,9 +266,9 @@ Include:
 {Guidance on visualizing non-physical concepts}
 ```
 
-### 7. Self-review before finalizing (5-dimension validation)
+### 7. Independent validation before finalizing (5-dimension review)
 
-Before finalizing each generated prompt, switch into a Professional AI Image Prompt Expert mindset and review your own draft against the framework below. Read the prompt from beginning to end, score each dimension systematically using the rubrics, determine an overall verdict, then fold concrete improvements back into the prompt before output. This is a self-review pass within the same flow — no separate agent.
+Before finalizing each generated prompt, have a **separate validator agent** review it with fresh eyes against the framework below. On Claude Code, launch it with the Task tool (general-purpose subagent); on Codex, explicitly ask to spawn an agent. Pass it the full generated prompt, the section title and source file, and the detected visualization type, acting as a Professional AI Image Prompt Expert. Have it read the prompt from beginning to end, score each dimension systematically using the rubrics, determine an overall verdict (APPROVED / MINOR REVISIONS / MAJOR REVISIONS), and return concrete fixes — then fold those improvements back into the prompt before output. (If your environment genuinely can't spawn a separate agent, run this same review yourself inline; prefer a separate reviewer for impartiality.)
 
 You evaluate prompts across 5 critical dimensions:
 

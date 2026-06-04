@@ -1,6 +1,6 @@
 ---
 name: sketch-to-ascii-diagram
-description: Turn a photo of a hand-drawn sketch into a clean, self-critiqued ASCII/Unicode diagram, then a paste-ready image-generation prompt for a polished infographic. Use when the user has a whiteboard or napkin sketch they want cleaned up into a slide- or web-ready visual for a mixed developer + executive audience.
+description: Turn a photo of a hand-drawn sketch into a clean, independently critiqued ASCII/Unicode diagram, then a paste-ready image-generation prompt for a polished infographic. Use when the user has a whiteboard or napkin sketch they want cleaned up into a slide- or web-ready visual for a mixed developer + executive audience.
 argument-hint: <path-to-sketch-image>
 ---
 
@@ -35,11 +35,13 @@ Draw an ASCII/Unicode diagram that captures the sketch. Guiding rules:
 - If the system has zones (e.g. local vs cloud, frontend vs backend), draw each zone once with one boundary between them — don't represent the same boundary three different ways.
 - Preserve any legend/key or structural call-out from the sketch if it does real teaching work; cut it if it's noise.
 
-## Phase 3 — Self-critique harshly, then revise
+## Phase 3 — Have a separate reviewer rip it to shreds, then revise
 
-Switch into a harsh-reviewer mindset and adversarially critique your own draft on the two axes below **without rewriting it as you go.** Hold in mind: (a) a faithful description of what the source sketch shows, (b) any ground-truth facts you've established, and (c) your draft ASCII. Critique on these TWO axes:
+Spawn a **separate reviewer agent** as a harsh technical reviewer for an independent, fresh-eyes critique. On Claude Code, launch it with the Task tool (general-purpose subagent); on Codex, explicitly ask to spawn an agent for this. Give it: (a) a faithful description of what the source sketch shows, (b) any ground-truth facts you've established, and (c) your draft ASCII. Ask it to critique on TWO axes and to **NOT** rewrite it for you:
 - **Accuracy** — anything wrong, missing, ambiguous, or conflated vs the source.
 - **ASCII clarity / minimalism** — broken arrow alignment, dangling arrows that point nowhere, redundant boundary devices, inconsistent node/arrow vocabularies, and what to CUT without losing followability.
+
+(If your environment genuinely can't spawn a separate agent, do this same harsh critique yourself inline — but prefer a separate reviewer; fresh eyes catch what self-review misses.)
 
 Then fold the high-leverage fixes back in and reprint the diagram. Do a second critique round if the diagram is complex or the first pass found a lot. Tell the user what changed and why. Iterate with the user until they're happy with the ASCII.
 
