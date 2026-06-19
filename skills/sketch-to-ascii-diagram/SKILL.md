@@ -14,7 +14,7 @@ The sketch image path is provided as the argument. If no path was provided, ask 
 
 Work through the phases below. Move at a good pace, but treat this as collaborative: the user expects a couple of back-and-forth iterations, not a one-shot answer.
 
-**Output location.** This run's deliverables get saved to their own folder: `documentation/image-prompts/<slug>/` in the current project (create `documentation/image-prompts/` if it doesn't exist — these are documentation artifacts). `<slug>` is a short kebab-case name for the diagram's subject (e.g. `auth-flow`, `data-pipeline`) — pick it from what the sketch depicts and confirm it with the user before writing files. Each run gets its own `<slug>/` subfolder, holding:
+**Output location.** This run's deliverables get saved to their own folder: `documentation/image-prompts/<slug>/` in the current project. If folder doesn't exist, look for a prexisting `image-prompts/` folder anywhere in repo (for backwards compatability) and save there instead. If `image-prompts/` folder doesn't exist, continue with creating `documentation/image-prompts/`. `<slug>` is a short kebab-case name for the diagram's subject (e.g. `auth-flow`, `data-pipeline`) — pick it from what the sketch depicts and confirm it with the user before writing files. Each run gets its own `<slug>/` subfolder, holding:
 - `diagram.md` — the approved ASCII diagram.
 - `gemini-prompt.md` — the image-generation prompt.
 
@@ -41,11 +41,9 @@ Spawn a **separate reviewer agent** as a harsh technical reviewer for an indepen
 - **Accuracy** — anything wrong, missing, ambiguous, or conflated vs the source.
 - **ASCII clarity / minimalism** — broken arrow alignment, dangling arrows that point nowhere, redundant boundary devices, inconsistent node/arrow vocabularies, and what to CUT without losing followability.
 
-(If your environment genuinely can't spawn a separate agent, do this same harsh critique yourself inline — but prefer a separate reviewer; fresh eyes catch what self-review misses.)
-
 Then fold the high-leverage fixes back in and reprint the diagram. Do a second critique round if the diagram is complex or the first pass found a lot. Tell the user what changed and why. Iterate with the user until they're happy with the ASCII.
 
-**On approval:** write the final ASCII to `documentation/image-prompts/<slug>/diagram.md` (wrap it in a fenced code block, with a one-line title above it). Only write this file once the user has explicitly approved the diagram — never before.
+**On approval:** write the final ASCII to `documentation/image-prompts/<slug>/diagram.md` or the respective folder if we're using the backwards compatibility folder. (wrap it in a fenced code block, with a one-line title above it). Only write this file once the user has explicitly approved the diagram — never before.
 
 ## Phase 4 — Build the image prompt
 
@@ -66,7 +64,7 @@ Write the prompt with this structure so the model can't wander:
 - **STYLE**: palette, flat/rounded, white space, legible sans-serif.
 - A constraint line: beautify layout/color/icons only; do not add, remove, or rename any technical content.
 
-Show the prompt to the user. Once they're happy with it, save it to `documentation/image-prompts/<slug>/gemini-prompt.md` (the raw prompt in a fenced code block so it's easy to copy, with a short title line above it). Then tell the user both file paths (`diagram.md` and `gemini-prompt.md`) so they know where the run landed.
+Show the prompt to the user. Once they're happy with it, save it to `documentation/image-prompts/<slug>/gemini-prompt.md` (or backwards compatibility folder). (the raw prompt in a fenced code block so it's easy to copy, with a short title line above it). Then tell the user both file paths (`diagram.md` and `gemini-prompt.md`) so they know where the run landed.
 
 ## Phase 5 — Caveats + optional accurate companion
 
