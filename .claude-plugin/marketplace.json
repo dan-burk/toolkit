@@ -8,7 +8,7 @@
     {
       "name": "toolkit",
       "source": "./",
-      "description": "Daniel's portable cross-platform skill toolkit: diagrams, R review, data science, project upkeep, bookmarks, debugging, and network triage."
+      "description": "Daniel's portable cross-platform skill toolkit: diagrams, R and data-code review, project upkeep, bookmarks, plugin sync, and network triage."
     }
   ]
 }
