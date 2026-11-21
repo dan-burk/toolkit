@@ -6,20 +6,17 @@ Daniel Burkhalter's cross-platform SKILL catalog — one repo, installable on ev
 
 | Skill | What it does |
 |---|---|
-| `generate-image-prompt-from-markdown` | Turn a markdown doc section into a structured, self-validated AI image prompt |
-| `sketch-to-ascii-diagram` | Photo of a hand-drawn sketch → clean ASCII diagram → paste-ready Gemini infographic prompt |
+| `sketch-to-ascii-diagram` | Sketch photo or markdown section → clean ASCII diagram → paste-ready Gemini infographic prompt |
 | `review-r-code-pre-push` | Pre-push review of R changes: bugs, security, performance, test coverage → READY/NEEDS WORK |
 | `r-data-science-best-practices` | R data-science coding conventions (auto-applied while writing R) |
-| `analyze-data-for-story` | Iterative, story-first data-analysis project workflow |
 | `review-data-code-correctness` | Adversarially audit data/stats code for hidden NAs, sentinels, silent row loss |
-| `profile-and-catalog-datasets` | Bootstrap a workspace: discover, profile, catalog datasets into DOMAIN.md |
-| `save-domain-knowledge-to-catalog` | Append generalizable findings from a finished analysis to DOMAIN.md |
 | `save-session-progress` | Compress the session into a "Where Did We Leave Off?" recap + commit message |
 | `update-documented-file-tree` | Reconcile a documented file tree with the repo's actual layout |
 | `describe-bookmarks-interactively` | Walk bookmarks one URL at a time, capturing why each was saved |
 | `load-bookmark-index` | Load the bookmark index into context for lookups |
-| `diagnose-and-fix-code-error` | Systematic debug: gather → trace → root-cause → fix → verify |
 | `check-network-for-tampering` | Triage the current network for spoofing/hijack/weak-WiFi signs (report-only) |
+| `record-installed-plugins` | Snapshot installed 3rd-party plugins into the `third-party-plugins.*` manifest |
+| `restore-installed-plugins` | Print the `/plugin marketplace add … / install …` commands to reinstall the manifest on a new machine |
 
 ## Install (Claude Code)
 

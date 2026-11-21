@@ -32,17 +32,16 @@ When performing data analysis or writing R code for data science tasks, adhere t
 - Use appropriate splitting methods (e.g., `rsample::initial_split()` or similar)
 
 ## File Paths
-- ALL file imports and exports must use `getwd()` as the starting point
-- Use `paste0(getwd(), "/subdirectory/file.csv")` for files in subdirectories
-- Use `paste0(getwd(), "/file.csv")` for files in the working directory root
-- Never use absolute paths or hardcoded paths
+- Use paths relative to the project root (e.g. `"data/input.csv"`), with the project root as the working directory (RStudio Project / `.Rproj`)
+- For scripts run from subfolders (or Quarto/R Markdown, which knit from the file's folder), use `here::here("data", "input.csv")`
+- Never use absolute paths, `setwd()`, or hardcoded machine-specific paths
 - Example:
   ```r
   # Reading data
-  df <- readr::read_csv(paste0(getwd(), "/data/input.csv"))
+  df <- readr::read_csv("data/input.csv")
 
-  # Writing data
-  readr::write_csv(df, paste0(getwd(), "/output/results.csv"))
+  # Writing data (from a script in a subfolder)
+  readr::write_csv(df, here::here("output", "results.csv"))
   ```
 
 ## Code Style
@@ -67,11 +66,11 @@ library(ggplot2)
 library(readr)
 
 # Read data ----
-raw_data <- read_csv(paste0(getwd(), "/data/raw_data.csv"))
+raw_data <- read_csv("data/raw_data.csv")
 
 # Data cleaning ----
-clean_data <- raw_data %>%
-  janitor::clean_names() %>%  # Clean column names
+clean_data <- raw_data |>
+  janitor::clean_names() |>  # Clean column names
   filter(!is.na(target_variable))
 
 # Train/test split ----
@@ -85,12 +84,12 @@ test_data <- rsample::testing(split_data)
 # Build your model here
 
 # Save results ----
-write_csv(predictions, paste0(getwd(), "/output/predictions.csv"))
+write_csv(predictions, "output/predictions.csv")
 ```
 
 ## Additional Guidelines
 - Check for and handle missing values appropriately
 - Validate data types after import
-- Use pipes (`%>%`) for readable data transformations
+- Use the native pipe (`|>`, R >= 4.1) for readable data transformations
 - Prefer vectorized operations over loops when possible
 - Test code on small subsets before running on full datasets

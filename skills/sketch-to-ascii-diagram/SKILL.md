@@ -1,16 +1,16 @@
 ---
 name: sketch-to-ascii-diagram
-description: Turn a photo of a hand-drawn sketch into a clean, independently critiqued ASCII/Unicode diagram, then a paste-ready image-generation prompt for a polished infographic. Use when the user has a whiteboard or napkin sketch they want cleaned up into a slide- or web-ready visual for a mixed developer + executive audience.
-argument-hint: <path-to-sketch-image>
+description: Turn a photo of a hand-drawn sketch (or a markdown file/section describing a system) into a clean, independently critiqued ASCII/Unicode diagram, then a paste-ready image-generation prompt for a polished infographic. Use when the user has a whiteboard or napkin sketch, or a markdown doc section, they want turned into a slide- or web-ready visual for a mixed developer + executive audience.
+argument-hint: <path-to-sketch-image | path-to-markdown-file[#section]>
 ---
 
 # Sketch to ASCII Diagram
 
-The user has a hand-drawn sketch or rough diagram and wants two things out of it:
+The user has a hand-drawn sketch, rough diagram, or markdown section and wants two things out of it:
 1. A clean **ASCII/Unicode diagram** that captures the sketch accurately, and
 2. An **image-generation prompt** that turns that diagram into a polished, colorful infographic for a slide deck or webpage.
 
-The sketch image path is provided as the argument. If no path was provided, ask the user for the image path — or to paste/attach the image — before doing anything else.
+The sketch image path — or a markdown file (optionally with a section heading) — is provided as the argument. If nothing was provided, ask the user for the image or markdown path — or to paste/attach it — before doing anything else.
 
 Work through the phases below. Move at a good pace, but treat this as collaborative: the user expects a couple of back-and-forth iterations, not a one-shot answer.
 
@@ -21,6 +21,8 @@ Work through the phases below. Move at a good pace, but treat this as collaborat
 ---
 
 ## Phase 1 — See the sketch
+
+**Markdown input instead of an image?** Read the file (just the named section, if one was given; if the file has several sections and none was named, ask which). List back the components, flows, and relationships it describes, flag anything ambiguous or implied, and let the user correct it. Then continue with Phase 2 onward exactly as for a sketch — "the sketch" below means the source section.
 
 Open and view the image at the given path (any capable agent can view images natively). Then:
 - Confirm you can actually see it. If it's unreadable/blurry, say so and ask for a better photo.
@@ -37,7 +39,7 @@ Draw an ASCII/Unicode diagram that captures the sketch. Guiding rules:
 
 ## Phase 3 — Have a separate reviewer rip it to shreds, then revise
 
-Spawn a **separate reviewer agent** as a harsh technical reviewer for an independent, fresh-eyes critique. On Claude Code, launch it with the Task tool (general-purpose subagent); on Codex, explicitly ask to spawn an agent for this. Give it: (a) a faithful description of what the source sketch shows, (b) any ground-truth facts you've established, and (c) your draft ASCII. Ask it to critique on TWO axes and to **NOT** rewrite it for you:
+Spawn a **separate reviewer agent** as a harsh technical reviewer for an independent, fresh-eyes critique. On Claude Code, launch it with the Agent tool (general-purpose subagent); on Codex, explicitly ask to spawn an agent for this. Give it: (a) a faithful description of what the source sketch shows, (b) any ground-truth facts you've established, and (c) your draft ASCII. Ask it to critique on TWO axes and to **NOT** rewrite it for you:
 - **Accuracy** — anything wrong, missing, ambiguous, or conflated vs the source.
 - **ASCII clarity / minimalism** — broken arrow alignment, dangling arrows that point nowhere, redundant boundary devices, inconsistent node/arrow vocabularies, and what to CUT without losing followability.
 

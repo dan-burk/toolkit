@@ -49,7 +49,7 @@ in the report.
 | 2 | ARP neighbors | `arp -a` | `ip neigh` (or `arp -a`) | `arp -a` |
 | 3 | Route to host | `tracert -h 15 -w 2000 google.com` | `traceroute -m 15 -w 2 google.com` | `traceroute -m 15 -w 2 google.com` |
 | 4 | Public IP | `curl -s ifconfig.me` | `curl -s ifconfig.me` | `curl -s ifconfig.me` |
-| 5 | WiFi encryption | `netsh wlan show interfaces` | `nmcli dev wifi` (or `iw dev <iface> link`) | `airport -I` (`/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport`) |
+| 5 | WiFi encryption | `netsh wlan show interfaces` | `nmcli dev wifi` (or `iw dev <iface> link`) | `system_profiler SPAirPortDataType` (or `sudo wdutil info`; `airport -I` was removed in macOS 14.4) |
 
 Under WSL, run the Windows column with `.exe` suffixes (see Step 0).
 

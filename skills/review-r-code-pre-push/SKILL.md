@@ -98,7 +98,6 @@ Look for:
 - **`for` loops over data.frame rows** — often replaceable with `dplyr::rowwise()` or vectorised ops
 - **`Sys.sleep()` in production code** without justification
 - **Reading/writing in a tight loop** — batch I/O where possible
-- **Missing `stringsAsFactors = FALSE`** in legacy code (pre-R 4.0)
 
 ---
 

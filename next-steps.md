@@ -4,7 +4,7 @@ Running notes for finishing setup and maintaining `toolkit`. Tick items off as y
 
 ## Outstanding setup
 
-- [ ] **Push to GitHub** — create empty repo `dan-burk/toolkit`, then `git remote add origin https://github.com/dan-burk/toolkit.git && git push -u origin <branch>`. (Private repo recommended for a personal toolkit.)
+- [x] **Push to GitHub** — create empty repo `dan-burk/toolkit`, then `git remote add origin https://github.com/dan-burk/toolkit.git && git push -u origin <branch>`. (Private repo recommended for a personal toolkit.)
 - [ ] **Install + end-to-end test** — `/plugin marketplace add dan-burk/toolkit` → `/plugin install toolkit@orditus`, then say "restore my installed plugins" and confirm `toolkit:restore-installed-plugins` prints the expected `/plugin marketplace add … / install …` block.
 - [ ] **Codex setup** (if/when using Codex) — symlink skills into `~/.codex/skills/`:
   `for d in "$(pwd)/skills"/*/; do ln -sfn "$d" ~/.codex/skills/; done`
