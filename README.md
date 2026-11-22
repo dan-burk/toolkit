@@ -7,6 +7,7 @@ Daniel Burkhalter's cross-platform SKILL catalog — one repo, installable on ev
 | Skill | What it does |
 |---|---|
 | `sketch-to-ascii-diagram` | Sketch photo or markdown section → clean ASCII diagram → paste-ready Gemini infographic prompt |
+| `ascii-to-architecture-diagram` | ASCII, markdown, or plain description → presentation-quality 1600x900 architecture diagram with real brand logos (HTML → self-reviewed PNG) |
 | `review-r-code-pre-push` | Pre-push review of R changes: bugs, security, performance, test coverage → READY/NEEDS WORK |
 | `r-data-science-best-practices` | R data-science coding conventions (auto-applied while writing R) |
 | `review-data-code-correctness` | Adversarially audit data/stats code for hidden NAs, sentinels, silent row loss |
@@ -17,6 +18,14 @@ Daniel Burkhalter's cross-platform SKILL catalog — one repo, installable on ev
 | `check-network-for-tampering` | Triage the current network for spoofing/hijack/weak-WiFi signs (report-only) |
 | `record-installed-plugins` | Snapshot installed 3rd-party plugins into the `third-party-plugins.*` manifest |
 | `restore-installed-plugins` | Print the `/plugin marketplace add … / install …` commands to reinstall the manifest on a new machine |
+
+## Agents
+
+Claude Code only — Codex has no subagent equivalent (use the skill directly there).
+
+| Agent | What it does |
+|---|---|
+| `diagram-designer` | Runs `ascii-to-architecture-diagram` end to end: spec → HTML → PNG, asks when labels/layout are ambiguous, and self-reviews the render before handing it over. Invoke with `@agent-toolkit:diagram-designer` or just ask for a polished architecture diagram. |
 
 ## Install (Claude Code)
 
