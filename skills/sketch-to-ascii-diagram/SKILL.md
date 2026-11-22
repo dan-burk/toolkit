@@ -73,7 +73,7 @@ Show the prompt to the user. Once they're happy with it, save it to `documentati
 Tell the user plainly:
 - AI image models approximate brand logos and may garble dense text — expect 2–3 generations; drop real logo PNGs on top afterward (PowerPoint/Figma/Canva) if exact branding matters.
 - Offer a **pixel-accurate companion** (Mermaid or SVG/HTML) if they want every label exact and editable — less illustrated, but diffable and precise. Present this as an explicit yes/no option for the user to take or leave. If they don't respond to the offer (ignore it, or end the conversation), assume **no** and do not build it.
-- For an exact, logo-accurate final image instead of (or after) the Gemini prompt, hand the approved ASCII off to the `ascii-to-architecture-diagram` skill.
+- **Which skill?** A sketch/photo comes through this skill first; for an exact, logo-accurate final image (instead of or after the Gemini prompt), hand the approved ASCII to `ascii-to-architecture-diagram`. Make sure the approved ASCII is saved to a file first (`diagram.md` in the `documentation/` run folder, or next to the output) so it's kept.
 
 ---
 

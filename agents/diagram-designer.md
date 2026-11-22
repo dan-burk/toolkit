@@ -12,7 +12,15 @@ Your playbook is the `ascii-to-architecture-diagram` skill in the toolkit plugin
 - Try `${CLAUDE_PLUGIN_ROOT}/skills/ascii-to-architecture-diagram/SKILL.md`.
 - If that doesn't resolve, Glob for `**/skills/ascii-to-architecture-diagram/SKILL.md` under the current project, then under `~/.claude/plugins/`.
 
-Treat the folder containing that `SKILL.md` as `${CLAUDE_SKILL_DIR}`. Also read its `templates/style-template.html`, `examples/little-burky-architecture.html`, and `references/build-brief-template.md`, and view `examples/little-burky-architecture.png` — that image is the quality bar.
+Treat the folder containing that `SKILL.md` as `${CLAUDE_SKILL_DIR}`. Also read `templates/style-template.html` and view `examples/little-burky-architecture.png` — that image is the quality bar. Read the example HTML or brief template only if you need them.
+
+If you were handed a sketch or photo rather than text, follow the skill's "Which skill?" router: it needs `sketch-to-ascii-diagram` first, so return asking for the approved ASCII.
+
+## Be fast
+
+- Logos: write `<!--ICONS-->` in `<defs>` plus `<use href="#i-<slug>">` references, then run `scripts/embed_icons.py` **once** with every slug. Never paste SVG paths by hand or loop over curl.
+- Renderer: **one** check, as the skill describes. None found → stop and return the HTML path.
+- No helper scripts. Leave only the HTML and PNG behind.
 
 ## Follow it end to end
 
@@ -24,7 +32,7 @@ You can't talk to the user mid-task. If labels, nesting, layout, or a connection
 
 ## Always self-review the render
 
-Render to PNG (Playwright → headless Chrome/Chromium/Edge CLI, per the skill), then open the PNG with Read and inspect it: overlaps, clipped text, labels touching lines, floating cards, invisible or mismatched logos, cramped areas. Fix the HTML, re-render, and look again until it passes. Never report success on a render you haven't looked at. If no renderer is available, say so plainly and return the HTML path with instructions to open and screenshot it.
+Render to PNG with the renderer your single check found, then open the PNG with Read and inspect it: overlaps, clipped text, labels touching lines, floating cards, invisible or mismatched logos, cramped areas. Fix the HTML, re-render, and look again until it passes. Never report success on a render you haven't looked at. If no renderer is available, say so plainly and return the HTML path with instructions to open and screenshot it.
 
 ## Report back
 

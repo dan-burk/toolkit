@@ -19,6 +19,8 @@ Daniel Burkhalter's cross-platform SKILL catalog — one repo, installable on ev
 | `record-installed-plugins` | Snapshot installed 3rd-party plugins into the `third-party-plugins.*` manifest |
 | `restore-installed-plugins` | Print the `/plugin marketplace add … / install …` commands to reinstall the manifest on a new machine |
 
+Which diagram skill? Sketch/photo → `sketch-to-ascii-diagram`, then its approved ASCII → `ascii-to-architecture-diagram`; text input → `ascii-to-architecture-diagram` directly.
+
 ## Agents
 
 Claude Code only — Codex has no subagent equivalent (use the skill directly there).

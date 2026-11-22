@@ -6,16 +6,23 @@ argument-hint: <path-to-ascii-or-markdown[#section] | plain description>
 
 # ASCII to Architecture Diagram
 
+**Which skill?**
+- Input is a **sketch or photo** → run `sketch-to-ascii-diagram` first, then this skill on its approved ASCII.
+- Input is **text** (ASCII, markdown, plain description) → this skill directly.
+
 The user has a system they want drawn — as an ASCII diagram, a markdown section, or just a description — and wants a **polished, exact image** of it: real brand logos, exact labels, nothing garbled. You build it as one self-contained HTML/SVG file, render it to PNG, look at it, fix it, and hand over the PNG.
 
 If nothing was provided, ask for the ASCII, markdown path, or a description before doing anything else.
 
-**This skill vs `sketch-to-ascii-diagram`.** That skill turns a sketch into an approved ASCII diagram plus a Gemini prompt for an illustrated "vibe" image (approximate logos, possibly garbled text). This skill produces the **exact, logo-accurate final image**. Use this one when labels and logos must be right; run `sketch-to-ascii-diagram` first if all you have is a photo of a whiteboard sketch.
+**This skill vs `sketch-to-ascii-diagram`.** That skill turns a sketch into an approved ASCII diagram plus a Gemini prompt for an illustrated "vibe" image (approximate logos, possibly garbled text). This skill produces the **exact, logo-accurate final image**. Use this one when labels and logos must be right.
 
-**Bundled assets** (read them before building):
+**Bundled assets:**
 - `${CLAUDE_SKILL_DIR}/templates/style-template.html` — base style: palette, grid, card, arrow, and boundary patterns.
-- `${CLAUDE_SKILL_DIR}/examples/little-burky-architecture.html` + `.png` — the gold-standard result. Match its quality bar: spacing, tile/logo treatment, arrow routing, label placement.
+- `${CLAUDE_SKILL_DIR}/examples/little-burky-architecture.png` (+ `.html`) — the gold-standard result. Match its quality bar: spacing, tile/logo treatment, arrow routing, label placement.
 - `${CLAUDE_SKILL_DIR}/references/build-brief-template.md` — fill-in brief for Phase 1/2, with the brief that produced the gold-standard example.
+- `${CLAUDE_SKILL_DIR}/scripts/embed_icons.py` — inlines Simple Icons logos in one call (Phase 2).
+
+**Speed:** read only this file, the style template, and the example PNG. Open the example HTML or the brief template only if you need them.
 
 (On Codex, `${CLAUDE_SKILL_DIR}` is this skill's folder.)
 
@@ -39,12 +46,15 @@ If anything is ambiguous — a label you're guessing at, unclear nesting, a conn
 Canvas exactly **1600x900** (16:9): `html, body` and one `<svg viewBox="0 0 1600 900">` at that size, no page scroll, no header outside the canvas, no summary cards, no footer. Follow the design system below and the gold-standard example.
 
 ### Real brand logos (Simple Icons)
-1. For each brand, download `https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/<slug>.svg` with `curl -sfL` (`curl.exe` on Windows PowerShell).
-2. **Validate** it: the download succeeded, the file starts with `<svg`, and it contains a `<path d="...">`. If a slug 404s, try the nearest official alternative (e.g. `claude` → `anthropic`) and note which you used.
-3. **Inline the path data** as a `<symbol id="i-<slug>" viewBox="0 0 24 24">` in `<defs>` — no external image links at runtime, so it renders offline.
-4. Render each logo in its **brand color** (the `hex` Simple Icons publishes for that icon — on simpleicons.org, or in the package's `simple-icons.json` data file on the same CDN).
-5. Put every logo on a **light rounded tile** (e.g. 44x44, `rx="10"`, fill `#f8fafc`) so dark marks (GitHub, Ubuntu) stay visible on the dark background. Logo size is consistent everywhere, about **30px** (`<use href="#i-<slug>" width="30" height="30">` centered on the tile).
-6. **No Simple Icons mark?** (Removed brands, internal tools, people.) Use a plain neutral glyph (person, terminal, sparkle, lock, database cylinder) in a neutral color — never a fake or hand-drawn brand logo — and tell the user which ones you substituted.
+1. Write the HTML with a `<!--ICONS-->` placeholder inside `<defs>`, and reference each logo as `<use href="#i-<slug>" ...>`. Don't paste any SVG paths yourself.
+2. Run the script **once** with every slug (`python` on Windows):
+   ```
+   python3 ${CLAUDE_SKILL_DIR}/scripts/embed_icons.py <file.html> <slug> [<slug> ...]
+   ```
+   It replaces the placeholder with a `<symbol id="i-<slug>">` per slug, filled with the brand hex, so the file renders offline. It prints `OK <slug> #<hex>` or `MISSING <slug>`. For a MISSING slug, try the nearest official alternative (e.g. `claude` → `anthropic`): put `<!--ICONS-->` back in `<defs>` and rerun with just that slug. Note which slug you used.
+3. **No Python?** Fetch one logo per `curl -sfL https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/<slug>.svg` command, with the full URL written out (no loops or `&&` chains), and inline its path in a `<symbol>` with its brand hex.
+4. Put every logo on a **light rounded tile** (e.g. 44x44, `rx="10"`, fill `#f8fafc`) so dark marks (GitHub, Ubuntu) stay visible on the dark background. Logo size is consistent everywhere, about **30px** (`<use href="#i-<slug>" width="30" height="30">` centered on the tile).
+5. **No Simple Icons mark?** (Removed brands, internal tools, people.) Use a plain neutral glyph (person, terminal, sparkle, lock, database cylinder) in a neutral color — never a fake or hand-drawn brand logo — and tell the user which ones you substituted.
 
 ### Hard rules
 - Minimal text. No sentences. Labels and short subtitles only.
@@ -56,20 +66,22 @@ Canvas exactly **1600x900** (16:9): `html, body` and one `<svg viewBox="0 0 1600
 
 ## Phase 3 — Render to PNG and look at it
 
-Render at 2x (3200x1800 PNG), using the first option that's available:
+**Find a renderer with ONE check — don't search again.**
+- **Linux/macOS:** `command -v playwright chromium chromium-browser google-chrome google-chrome-stable microsoft-edge` (on macOS, also `ls "/Applications/Google Chrome.app" "/Applications/Microsoft Edge.app"` if that finds nothing).
+- **Windows:** `where playwright chrome msedge`. Edge ships with Windows at `"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"`.
 
-1. **Playwright** (if installed — Python or Node). Open `file:///<abs-path>.html` with viewport 1600x900 and `device_scale_factor=2`, wait for fonts (`document.fonts.ready`), screenshot to PNG.
-2. **Headless Chrome / Chromium / Edge CLI:**
-   ```
-   <browser> --headless --screenshot=out.png --window-size=1600,900 --force-device-scale-factor=2 file:///abs/path.html
-   ```
-   Use an absolute path; on Windows write it as `file:///C:/path/to/file.html`. Binary names:
-   - **Linux:** `google-chrome`, `google-chrome-stable`, `chromium`, `chromium-browser`, `microsoft-edge`
-   - **macOS:** `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"`, `"/Applications/Chromium.app/Contents/MacOS/Chromium"`, `"/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"`
-   - **Windows:** `"C:\Program Files\Google\Chrome\Application\chrome.exe"`, `"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"` (Edge ships with Windows)
+Render with what it found:
+- **Chrome / Chromium / Edge** (preferred — 2x, 3200x1800):
+  ```
+  <browser> --headless --screenshot=out.png --window-size=1600,900 --force-device-scale-factor=2 --virtual-time-budget=5000 file:///abs/path.html
+  ```
+- **Only Playwright:** `playwright screenshot --viewport-size=1600,900 --wait-for-timeout=1500 file:///abs/path.html out.png` (1x is fine).
 
-   If web fonts didn't load in time, add `--virtual-time-budget=5000`.
-3. **Neither available:** tell the user to open the HTML in a browser and screenshot it (or install Playwright), and skip to delivery with the HTML.
+Use an absolute path; on Windows write it as `file:///C:/path/to/file.html`.
+
+**Nothing found:** stop. Return the HTML path and tell the user to open it in a browser and screenshot it (or install Playwright). Don't write helper render scripts.
+
+**Leave no helper files behind** — the only outputs are the HTML and the PNG.
 
 **Self-review.** If you can view images, open the PNG and check it against the hard rules: overlaps, clipped text, labels touching lines, floating/disconnected cards, inconsistent logo sizes, invisible dark logos, cramped areas. Fix the HTML, re-render, and look again until it's clean. Never deliver a render you haven't looked at.
 
